@@ -2,6 +2,8 @@ const express = require("express");
 
 const ctrl = require("../../controllers/contactsControllers");
 
+const { isValidId } = require("../../middlewares");
+
 const {
   validateAddContact,
   validateUpdContact,
@@ -12,7 +14,7 @@ const router = express.Router();
 
 router.get("/", ctrl.getAllContacts);
 
-router.get("/:contactId", ctrl.getContactById);
+router.get("/:contactId", isValidId, ctrl.getContactById);
 
 router.post("/", validateAddContact, ctrl.addContact);
 

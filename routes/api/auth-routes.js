@@ -13,10 +13,6 @@ router.post(
   ctrl.register
 );
 
-router.post(
-  "/users/login",
-  validateBody(schemas.registerSchema),
-  ctrl.register
-);
+router.post("/users/login", validateBody(schemas.registerSchema), ctrl.login);
 
 module.exports = router;

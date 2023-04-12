@@ -23,8 +23,6 @@ const contactSchema = new Schema(
   { versionKey: false }
 );
 
-//  timestamps: true;
-
 contactSchema.post("save", MongooseError);
 
 const addSchema = Joi.object({

@@ -22,6 +22,10 @@ const userSchema = new Schema(
       default: "starter",
     },
     token: String,
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
   },
   { versionKey: false }
 );
@@ -29,7 +33,7 @@ const userSchema = new Schema(
 userSchema.post("save", MongooseError);
 
 const registerSchema = Joi.object({
-  name: Joi.string().trim().required(),
+  subscription: Joi.string(),
   email: Joi.string().trim().email().required(),
   password: Joi.string().trim().min(6).required(),
 });
