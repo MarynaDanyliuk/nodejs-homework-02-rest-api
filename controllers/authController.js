@@ -42,15 +42,19 @@ const login = async (req, res) => {
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
 
   res.json({ token });
+};
 
-  //   const result = await User.create(req.body);
+const getCurrent = async (req, res) => {
+  const { id, email } = req.user;
 
-  //   res.status(201).json({
-  //     email: result.email,
-  //   });
+  res.json({
+    id,
+    email,
+  });
 };
 
 module.exports = {
   register: ctrlWrapper(register),
   login: ctrlWrapper(login),
+  getCurrent: ctrlWrapper(getCurrent),
 };

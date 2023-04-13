@@ -8,8 +8,8 @@ const getAllContacts = async (req, res, next) => {
   // const skip = (page - 1) * limit;
 
   const result = await Contact.find(
-    { owner },
-    { skip: 1, limit: 20, name: 1, email: 1, phone: 1, favorite: 1 }
+    { owner }
+    // { skip: 2, limit, name: 1, email: 1, phone: 1, favorite: 1 }
   ).populate("owner", "email");
   res.json(result);
 };
