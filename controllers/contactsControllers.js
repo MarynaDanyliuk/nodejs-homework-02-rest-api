@@ -4,13 +4,14 @@ const { ctrlWrapper } = require("../helpers");
 
 const getAllContacts = async (req, res, next) => {
   const { _id: owner } = req.user;
-  // const { page = 1, limit = 20 } = req.query;
-  // const skip = (page - 1) * limit;
+  // console.log(req.query);
+  const { page, limit } = req.query;
+  const skip = (page - 1) * limit;
 
-  const result = await Contact.find(
-    { owner }
-    // { skip: 2, limit, name: 1, email: 1, phone: 1, favorite: 1 }
-  ).populate("owner", "email");
+  const result = await Contact.find({ owner }, {}, { skip, limit }).populate(
+    "owner",
+    "email"
+  );
   res.json(result);
 };
 
