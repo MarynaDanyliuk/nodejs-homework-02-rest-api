@@ -3,7 +3,15 @@ const { ObjectId } = require("mongoose").Types;
 const { ctrlWrapper } = require("../helpers");
 
 const getAllContacts = async (req, res, next) => {
-  const result = await Contact.find();
+  const { _id: owner } = req.user;
+  // console.log(req.query);
+  const { page, limit } = req.query;
+  const skip = (page - 1) * limit;
+
+  const result = await Contact.find({ owner }, {}, { skip, limit }).populate(
+    "owner",
+    "email"
+  );
   res.json(result);
 };
 
@@ -16,7 +24,9 @@ const getContactById = async (req, res, next) => {
 };
 
 const addContact = async (req, res, next) => {
-  const result = await Contact.create(req.body);
+  console.log(req.user);
+  const { _id: owner } = req.user;
+  const result = await Contact.create({ ...req.body, owner });
   if (!result) {
     res.status(404).json({ message: "Not found" });
     return;

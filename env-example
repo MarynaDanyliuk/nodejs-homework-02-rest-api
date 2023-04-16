@@ -1,3 +1,5 @@
 DB_HOST=mongodb+srv://MaryDan:4W3dbq1I6FNwX1DA@cluster0.0qilsj8.mongodb.net/phonebook?retryWrites=true&w=majority
 
 PORT=3000
+
+SECRET_KEY=W1C#3_mHcAQY7dGTrIWeRD1S~^vVQ9

@@ -1,15 +1,15 @@
-// const { HttpError } = require("../helpers");
+const { HttpError } = require("./HttpError");
 
-// const validateBody = (schema) => {
-//   const func = async (req, res, next) => {
-//     const { error } = schema.validate(req.body);
-//     if (error) {
-//       next(HttpError(400, error.message));
-//     }
-//     next();
-//   };
+const validateBody = (schema) => {
+  const func = async (req, res, next) => {
+    const { error } = schema.validate(req.body);
+    if (error) {
+      next(HttpError(400, error.message));
+    }
+    next();
+  };
 
-//   return func;
-// };
+  return func;
+};
 
-// module.exports = validateBody;
+module.exports = validateBody;
