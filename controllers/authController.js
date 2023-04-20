@@ -8,7 +8,7 @@ const Jimp = require("jimp");
 const { User } = require("../models/user");
 // const { ObjectId } = require("mongoose").Types;
 const { ctrlWrapper, HttpError } = require("../helpers");
-const { nextTick } = require("process");
+// const { nextTick } = require("process");
 
 const { SECRET_KEY } = process.env;
 
@@ -83,7 +83,7 @@ const logout = async (req, res) => {
   });
 };
 
-const updateAvatar = async (req, res) => {
+const updateAvatar = async (req, res, next) => {
   const { _id } = req.user;
   const { path: tempUpload, filename } = req.file;
   const avatarName = `${_id}_${filename}`;
@@ -99,7 +99,7 @@ const updateAvatar = async (req, res) => {
   try {
     await fs.rename(tempUpload, avatarURL);
   } catch (err) {
-    return nextTick(err);
+    return next(err);
   }
   await User.findByIdAndUpdate(_id, { avatarURL });
 
