@@ -1,11 +1,5 @@
 const multer = require("multer");
 const path = require("path");
-// const Jimp = require("jimp");
-
-// const { HttpError } = require("../helpers");
-// const app = require("../app");
-
-// const contacts = [];
 
 const tempDir = path.join(__dirname, "../", "temp");
 
