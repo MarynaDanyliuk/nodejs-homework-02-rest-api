@@ -106,34 +106,6 @@ const updateAvatar = async (req, res, next) => {
   res.status(200).json({ avatarURL });
 };
 
-// const resultUpload = path.join(avatarsDir, avatarName);
-
-// const avatarURL = path.join("avatars", avatarName);
-
-// _______________ 250*250_________
-
-// const image = await Jimp.read(tempUpload);
-// await image.resize(250, 250, Jimp.RESIZE_BEZIER);
-
-// async function resize(avatarsDir, avatarName) {
-//   // Read the image.
-//   const image = await Jimp.read(avatarsDir, (err, avatarName) => {
-//     if (err) throw HttpError;
-//     avatarName.resize(250, 250); // resize
-//   });
-//   // Resize the image to width 150 and heigth 150.
-//   await image.resize(250, 250);
-//   // Save and overwrite the image
-//   return await image.writeAsync(`test/${Date.now()}_250x250.png`);
-// }
-// resize();
-
-// await Jimp.read(avatarsDir, (err, avatarName) => {
-//   if (err) throw HttpError;
-//   avatarName.resize(250, 250); // resize
-// });
-// ______________________________
-
 module.exports = {
   register: ctrlWrapper(register),
   login: ctrlWrapper(login),
