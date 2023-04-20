@@ -6,9 +6,8 @@ const fs = require("fs/promises");
 const Jimp = require("jimp");
 
 const { User } = require("../models/user");
-// const { ObjectId } = require("mongoose").Types;
+
 const { ctrlWrapper, HttpError } = require("../helpers");
-// const { nextTick } = require("process");
 
 const { SECRET_KEY } = process.env;
 
@@ -90,12 +89,6 @@ const updateAvatar = async (req, res, next) => {
   const avatarName = `${_id}_${filename}`;
 
   const avatarURL = path.join(avatarsDir, avatarName);
-
-  // const image = await await Jimp.read(tempUpload);
-  // await image.resize(250, Jimp.AUTO);
-  // await image.writeAsync(tempUpload);
-
-  // await fs.rename(tempUpload, avatarURL);
 
   const image = await Jimp.read(tempUpload);
   await image.resize(250, Jimp.AUTO);
