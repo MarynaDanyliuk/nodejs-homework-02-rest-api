@@ -3,10 +3,12 @@ const jwt = require("jsonwebtoken");
 const gravatar = require("gravatar");
 const path = require("path");
 const fs = require("fs/promises");
+const Jimp = require("jimp");
 
 const { User } = require("../models/user");
 // const { ObjectId } = require("mongoose").Types;
 const { ctrlWrapper, HttpError } = require("../helpers");
+const { nextTick } = require("process");
 
 const { SECRET_KEY } = process.env;
 
@@ -85,13 +87,52 @@ const updateAvatar = async (req, res) => {
   const { _id } = req.user;
   const { path: tempUpload, filename } = req.file;
   const avatarName = `${_id}_${filename}`;
-  const resultUpload = path.join(avatarsDir, avatarName);
-  await fs.rename(tempUpload, resultUpload);
-  const avatarURL = path.join("avatars", avatarName);
+
+  console.log(avatarName);
+
+  const avatarURL = path.join(avatarsDir, avatarName);
+
+  const image = await Jimp.read(tempUpload);
+  await image.resize(250, 250, Jimp.RESIZE_BEZIER);
+  await image.writeAsync(tempUpload);
+
+  try {
+    await fs.rename(tempUpload, avatarURL);
+  } catch (err) {
+    return nextTick(err);
+  }
   await User.findByIdAndUpdate(_id, { avatarURL });
 
-  res.json({ avatarURL });
+  res.status(200).json({ avatarURL });
 };
+
+// const resultUpload = path.join(avatarsDir, avatarName);
+
+// const avatarURL = path.join("avatars", avatarName);
+
+// _______________ 250*250_________
+
+// const image = await Jimp.read(tempUpload);
+// await image.resize(250, 250, Jimp.RESIZE_BEZIER);
+
+// async function resize(avatarsDir, avatarName) {
+//   // Read the image.
+//   const image = await Jimp.read(avatarsDir, (err, avatarName) => {
+//     if (err) throw HttpError;
+//     avatarName.resize(250, 250); // resize
+//   });
+//   // Resize the image to width 150 and heigth 150.
+//   await image.resize(250, 250);
+//   // Save and overwrite the image
+//   return await image.writeAsync(`test/${Date.now()}_250x250.png`);
+// }
+// resize();
+
+// await Jimp.read(avatarsDir, (err, avatarName) => {
+//   if (err) throw HttpError;
+//   avatarName.resize(250, 250); // resize
+// });
+// ______________________________
 
 module.exports = {
   register: ctrlWrapper(register),

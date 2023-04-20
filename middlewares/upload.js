@@ -1,5 +1,8 @@
 const multer = require("multer");
 const path = require("path");
+// const Jimp = require("jimp");
+
+// const { HttpError } = require("../helpers");
 // const app = require("../app");
 
 // const contacts = [];
@@ -9,6 +12,17 @@ const tempDir = path.join(__dirname, "../", "temp");
 const multerConfig = multer.diskStorage({
   destination: tempDir,
   filename: (req, file, cb) => {
+    // // _______________ 250*250_________
+    // const fileFormst = Jimp.read(tempDir, (err, avatarName) => {
+    //   if (err) throw HttpError;
+    //   avatarName.resize(250, 250); // resize
+    // });
+
+    // Jimp.read("avatarName.png", (err, avatarName) => {
+    //   if (err) throw err;
+    //   avatarName.resize(250, 250); // resize
+    // });
+    // // ______________________________
     // const date = new Date();
     // const time = date.getTime();
     // const filename = `${time}_${file.originalname}`;
