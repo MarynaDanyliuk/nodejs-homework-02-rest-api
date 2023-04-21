@@ -84,7 +84,6 @@ const logout = async (req, res) => {
 
 const updateAvatar = async (req, res, next) => {
   const { _id } = req.user;
-  console.log(req.file);
   const { path: tempUpload, filename } = req.file;
   const avatarName = `${_id}_${filename}`;
 
@@ -101,7 +100,9 @@ const updateAvatar = async (req, res, next) => {
   }
   await User.findByIdAndUpdate(_id, { avatarURL });
 
-  res.status(200).json({ avatarURL });
+  const avatarLink = path.join("avatars", avatarName);
+
+  res.status(200).json({ avatarLink });
 };
 
 module.exports = {
