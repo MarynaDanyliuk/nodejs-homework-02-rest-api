@@ -2,32 +2,35 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 
+const nodemailer = require("nodemailer");
 require("dotenv").config();
+
+const nodemailerConfig = {
+  host: "smtp.meta.ua",
+  port: 465, // 25, 465, 2525
+  secure: true,
+  auth: {
+    user: "marydanyliuk@meta.ua",
+    pass: process.env.META_PASSWORD,
+  },
+};
+
+const transporter = nodemailer.createTransport(nodemailerConfig);
+
+const emailOptions = {
+  to: "mahera1071@syinxun.com",
+  from: "marydanyliuk@meta.ua",
+  subject: "Test email",
+  text: "Привіт. Ми тестуємо надсилання листів!",
+};
+
+transporter
+  .sendMail(emailOptions)
+  .then(() => console.log("Email send success"))
+  .catch((error) => console.log(error.message));
 
 const contactsRouter = require("./routes/api/contacts-routes");
 const authRouter = require("./routes/api/auth-routes");
-
-// const multer = require("multer");
-// const path = require("path");
-// const fs = require("fs/promises");
-// const { nanoid } = require("nanoid");
-
-// const tempDir = path.join(__dirname, "temp");
-
-// const multerConfig = multer.diskStorage({
-//   destination: tempDir,
-//   filename: (req, file, cb) => {
-//     // const date = new Date();
-//     // const time = date.getTime();
-//     // const filename = `${time}_${file.originalname}`;
-//     // cb(null, filename)
-//     cb(null, file.originalname);
-//   },
-// });
-
-// const upload = multer({
-//   storage: multerConfig,
-// });
 
 const app = express();
 
@@ -51,3 +54,25 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
+
+// const multer = require("multer");
+// const path = require("path");
+// const fs = require("fs/promises");
+// const { nanoid } = require("nanoid");
+
+// const tempDir = path.join(__dirname, "temp");
+
+// const multerConfig = multer.diskStorage({
+//   destination: tempDir,
+//   filename: (req, file, cb) => {
+//     // const date = new Date();
+//     // const time = date.getTime();
+//     // const filename = `${time}_${file.originalname}`;
+//     // cb(null, filename)
+//     cb(null, file.originalname);
+//   },
+// });
+
+// const upload = multer({
+//   storage: multerConfig,
+// });
