@@ -3,3 +3,9 @@ DB_HOST=mongodb+srv://MaryDan:4W3dbq1I6FNwX1DA@cluster0.0qilsj8.mongodb.net/phon
 PORT=3000
 
 SECRET_KEY=W1C#3_mHcAQY7dGTrIWeRD1S~^vVQ9
+
+EMAIL_FROM=
+
+META_PASSWORD=Mary1111
+
+BASE_URL = http://localhost:3000

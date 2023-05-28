@@ -2,32 +2,8 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 
-require("dotenv").config();
-
 const contactsRouter = require("./routes/api/contacts-routes");
 const authRouter = require("./routes/api/auth-routes");
-
-// const multer = require("multer");
-// const path = require("path");
-// const fs = require("fs/promises");
-// const { nanoid } = require("nanoid");
-
-// const tempDir = path.join(__dirname, "temp");
-
-// const multerConfig = multer.diskStorage({
-//   destination: tempDir,
-//   filename: (req, file, cb) => {
-//     // const date = new Date();
-//     // const time = date.getTime();
-//     // const filename = `${time}_${file.originalname}`;
-//     // cb(null, filename)
-//     cb(null, file.originalname);
-//   },
-// });
-
-// const upload = multer({
-//   storage: multerConfig,
-// });
 
 const app = express();
 
@@ -51,3 +27,25 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
+
+// const multer = require("multer");
+// const path = require("path");
+// const fs = require("fs/promises");
+// const { nanoid } = require("nanoid");
+
+// const tempDir = path.join(__dirname, "temp");
+
+// const multerConfig = multer.diskStorage({
+//   destination: tempDir,
+//   filename: (req, file, cb) => {
+//     // const date = new Date();
+//     // const time = date.getTime();
+//     // const filename = `${time}_${file.originalname}`;
+//     // cb(null, filename)
+//     cb(null, file.originalname);
+//   },
+// });
+
+// const upload = multer({
+//   storage: multerConfig,
+// });
